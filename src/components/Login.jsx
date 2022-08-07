@@ -13,6 +13,11 @@ const Login = (props) => {
 					<SignIn>Sign in</SignIn>
 				</div>
 			</Nav>
+			<Section>
+				<Hero>
+					<h1>welcom to your professional comunity</h1>
+				</Hero>
+			</Section>
 		</Container>
 	)
 }
@@ -34,7 +39,7 @@ const Nav = styled.nav`
 		width: 7.813rem;
 		height: 2.125rem; 
 
-		@media(max-width: 768px){
+		@media(max-width: 768){
 			padding: 0 0.313rem;
 		}
 	}
@@ -72,6 +77,35 @@ const SignIn = styled.a`
 
 	&:hover{
 		background-color: rgba(112,181,249, 0.15);
+	}
+`;
+
+const Section = styled.section`
+	display: flex;
+	align-items: start;
+	min-height: 43.75rem;
+	padding-bottom: 8.438rem;
+	padding-top: 2.5rem;
+	padding: 3.75rem;
+	flex-wrap: wrap;
+	width: 100%;
+	max-width: 70rem;
+
+	@media(max-width: 768){
+		margin: auto;
+		min-height: 0rem;
+	}
+`;
+
+const Hero = styled.div`
+	width:100%;
+
+	h1 {
+		padding-bottom: 0;
+		width: 55%;
+		font-size: 3.5rem;
+		font-weight: 200;
+		color: #0a66c2;
 	}
 `;
 

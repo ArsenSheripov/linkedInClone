@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import cardBg from '../assets/images/card-bg.svg'
+import photo from '../assets/images/photo.svg'
+import itemIco from '../assets/images/widget-icon.svg'
+import bookmark from '../assets/images/item-icon.svg'
 
 const LeftSide = () => {
 	return (
@@ -19,6 +23,21 @@ const LeftSide = () => {
 						</AddPhotoText>
 					</a>
 				</UserInfo>
+				<Widget>
+					<a>
+						<div>
+							<span>Connections</span>
+							<span>Grow your netwoek</span>
+						</div>
+						<img src={itemIco} alt="itemIco" />
+					</a>
+				</Widget>
+				<Item>
+					<span>
+						<img src={bookmark} alt="bookmark" />
+						My items
+					</span>
+				</Item>
 			</ArtCard>
 		</Container>
 	)
@@ -47,13 +66,100 @@ const UserInfo = styled.div`
 	word-break: break-word;
 `;
 
-const CardBackground = styled.div``;
+const CardBackground = styled.div`
+	background-image:url(${cardBg});
+	background-position: center;
+	background-size: 28.875rem;
+	height: 3.375rem;
+	margin: -0.75rem -0.75rem 0;
+	`;
 
-const Linke = styled.div``;
+const Linke = styled.div`
+	font-size: 1rem;
+	line-height: 1.5;
+	color: rgba(0, 0, 0, 0.9);
+	font-weight: 600;
+`;
 
-const Photo = styled.div``;
+const Photo = styled.div`
+	background-image: url(${photo});
+	width: 4.5rem;
+	height: 4.5rem;
+	box-sizing: border-box;
+	background-clip: content-box;
+	background-color: white;
+	background-size: 60%;
+	background-repeat: no-repeat;
+	background-position: center;
+	border: 2px solid white;
+	border-radius: 50%;
+	margin: -2.375rem auto 0.75rem;
+`;
 
-const AddPhotoText = styled.div``;
+const AddPhotoText = styled.div`
+	color: #0a66c2;
+	margin-top: 0.25rem;
+	font-size: 0.75rem;
+	line-height: 1.33;
+	font-weight: 400;
 
+`;
+
+const Widget = styled.div`
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+
+	& > a {
+		display: flex;
+		justify-content: space-between;
+		text-decoration: none;
+		align-items: center;
+		padding: 0.25rem 0.75rem;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.08);
+		}
+		div {
+			display: flex;
+			flex-direction: column;
+			text-align: left;
+			span {
+				font-size: 0.75rem;
+				line-height: 1.333;
+
+				&:first-child{
+					color: rgba(0, 0, 0, 0.6);
+				}
+				&:nth-child(2){
+					color: rgba(0, 0, 0, 1);
+				}
+			}
+		}
+	}
+	svg {
+		color: rgba(0, 0, 0, 1);
+	}
+`;
+
+const Item = styled.a`
+	display: block;
+    font-size: 0.75rem;
+	text-align: left;
+	padding: 0.75rem;
+	border-color: rgba(0, 0, 0, 0.8);
+
+	span {
+		display: flex;
+		align-items: center;
+		color: rgba(0, 0, 0, 1);
+		svg {
+			color: rgba(0, 0, 0, 0.6);
+		}
+	}
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.08);
+	}
+`;
 
 export default LeftSide;

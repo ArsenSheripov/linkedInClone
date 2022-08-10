@@ -59,7 +59,7 @@ const FollowCard = styled.div`
 	background-color: #fff;
 	border-radius: 5px;
 	border: none;
-	box-shadow: 0 0 0 1px rgba(0, 0, 0, 15%),0 0 0 1px rgba(0, 0, 0, 20%);
+	box-shadow: 0 0 0 1px rgba(0 0 0 / 15%),0 0 0 1px rgba(0 0 0 / 20%);
 `;
 
 const Title = styled.div`

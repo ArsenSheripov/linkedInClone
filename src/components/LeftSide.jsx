@@ -4,6 +4,7 @@ import cardBg from '../assets/images/card-bg.svg'
 import photo from '../assets/images/photo.svg'
 import itemIco from '../assets/images/widget-icon.svg'
 import bookmark from '../assets/images/item-icon.svg'
+import plusIco from '../assets/images/plus-icon.svg'
 
 const LeftSide = () => {
 	return (
@@ -39,6 +40,23 @@ const LeftSide = () => {
 					</span>
 				</Item>
 			</ArtCard>
+			<ComunityCard>
+				<a>
+					<span>Groups</span>
+				</a>
+				<a>
+					<span>
+						Events
+						<img src={plusIco} alt="plusIco" />
+					</span>
+				</a>
+				<a>
+					<span>Folow Hashtags</span>
+				</a>
+				<a>
+					<span>Discover</span>
+				</a>
+			</ComunityCard>
 		</Container>
 	)
 }
@@ -160,6 +178,43 @@ const Item = styled.a`
 	&:hover {
 		background-color: rgba(0, 0, 0, 0.08);
 	}
+`;
+
+const ComunityCard = styled(ArtCard)`
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	padding: 0.5rem 0 0;
+
+	a {
+		font-size: 0.75rem;
+		color: black;
+		padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+		cursor: pointer;
+		transition: all 0.3s ease-in;
+
+		&:hover {
+			color: #0a66c2;
+		}
+
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		&:last-child {
+			color: rgba(0, 0, 0, 0.6);
+			text-decoration: none;
+			border-top: 1px solid #d6cec2;
+			padding: 0.75rem;
+
+			&:hover {
+				background-color: rgba(0, 0, 0, 0.08);
+			}
+		}
+	}
+
 `;
 
 export default LeftSide;

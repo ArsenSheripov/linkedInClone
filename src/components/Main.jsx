@@ -77,6 +77,24 @@ const Main = () => {
 							<a>2 coments</a>
 						</li>
 					</SocialCounts>
+					<SocialActions>
+						<button>
+							<img src={likeIco} alt="like" />
+							<span>Like</span>
+						</button>
+						<button>
+							<img src={commentIco} alt="commentIco" />
+							<span>Comment</span>
+						</button>
+						<button>
+							<img src={shareIco} alt="shareIco" />
+							<span>Share</span>
+						</button>
+						<button>
+							<img src={sendIco} alt="sendIco" />
+							<span>Send</span>
+						</button>
+					</SocialActions>
 				</Article>
 			</div>
 		</Container>
@@ -266,6 +284,28 @@ const SocialCounts = styled.ul`
 			display: flex;
 			align-items: center;
 		}
+	}
+`;
+
+const SocialActions = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin: 0;
+	min-height: 2.5rem;
+	padding: 0.25rem 0.5rem;	
+
+	button {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.5rem;
+		color: #0a66c2;
+
+		img {
+			width: 1.5rem;
+			margin-right: 0.5rem;
+		}
+
 	}
 `;
 

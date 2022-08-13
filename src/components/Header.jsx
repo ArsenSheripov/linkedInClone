@@ -11,8 +11,10 @@ import notificIco from '../assets/images/nav-notifications.svg';
 import userImage from '../assets/images/user.svg';
 import icoDown from '../assets/images/down-icon.svg';
 import icoWork from '../assets/images/nav-work.svg';
+import { connect } from 'react-redux';
+import { signOutAPI } from '../actions';
 
-const Header = () => {
+const Header = (props) => {
 	const navListItems = [
 		{ href: '/home', img: homeIco, name: 'Home' },
 		{ href: '/2', img: networkIco, name: 'My Network' },
@@ -50,11 +52,18 @@ const Header = () => {
 
 						<User>
 							<a>
-								<img src={userImage} alt="user" />
+								{props.user && props.user.photoURL
+									?
+									<img src={props.user.photoURL} alt="user" />
+									:
+									<img src={userImage} alt="user" />
+								}
 								<span>Me</span>
 								<img src={icoDown} alt="icoDown" />
 							</a>
-							<SignOut><a>Sign out</a></SignOut>
+							<SignOut onClick={() => props.signOut()}>
+								<a>Sign out</a>
+							</SignOut>
 						</User>
 
 						<Work>
@@ -244,5 +253,14 @@ const Work = styled(User)`
 	border-left: 1px solid rgba(0,0,0,0.08);
 `;
 
+const mapStateToProps = (state) => {
+	return {
+		user: state.userState.user,
+	};
+};
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+	signOut: () => dispatch(signOutAPI())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

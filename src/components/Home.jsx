@@ -4,12 +4,16 @@ import Header from './Header';
 import LeftSide from './LeftSide';
 import Main from './Main';
 import RightSide from './RightSide';
+import { useNavigate } from 'react-router-dom';
+import { connect } from "react-redux";
 
-const Home = () => {
+const Home = (props) => {
+	const navigate = useNavigate();
 	return (
 		<>
 			<Header />
 			<Container>
+				{!props.user && navigate('/')}
 				<Section>
 					<h5>
 						<a>Hiring in a harry? - </a>
@@ -78,4 +82,10 @@ const Layout = styled.div`
 	}
 `;
 
-export default Home;
+const mapStateToProps = (state) => {
+	return {
+		user: state.userState.user,
+	}
+}
+
+export default connect(mapStateToProps)(Home);

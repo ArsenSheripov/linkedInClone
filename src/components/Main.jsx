@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import userImg from "../assets/images/user.svg";
 import photoIco from "../assets/images/photo-icon.svg";
@@ -13,12 +13,33 @@ import sendIco from "../assets/images/send-icon.svg";
 import PostModal from './PostModal';
 
 const Main = () => {
+	const [showModal, setShowModal] = useState("close");
+
+	const handleClick = (e) => {
+		e.preventDefault();
+		if (e.target !== e.currentTarget) {
+			return;
+		}
+
+		switch (showModal) {
+			case "open":
+				setShowModal("close")
+				break;
+			case "close":
+				setShowModal("open")
+				break;
+			default:
+				setShowModal("close")
+				break;
+		}
+	}
+
 	return (
 		<Container>
 			<ShareBox>
 				<div>
 					<img src={userImg} alt="user" />
-					<button>start a post</button>
+					<button onClick={handleClick}>Start a post</button>
 				</div>
 				<div>
 					<button>
@@ -98,7 +119,10 @@ const Main = () => {
 					</SocialActions>
 				</Article>
 			</div>
-			<PostModal />
+			<PostModal
+				showModal={showModal}
+				handleClick={handleClick}
+			/>
 		</Container>
 	)
 }

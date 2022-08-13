@@ -6,61 +6,69 @@ import photoIco from "../assets/images/photo-icon.svg";
 import videoIco from "../assets/images/video-icon.svg";
 import commentIco from "../assets/images/comment-icon.svg";
 
-const PostModal = () => {
+const PostModal = (props) => {
 	const [editorText, setEditorText] = useState('')
 
+	const reset = (e) => {
+		setEditorText('')
+		props.handleClick(e)
+	}
+
 	return (
-		<Container>
-			<Content>
-				<Header>
-					<h2>Create a post</h2>
-					<button>
-						<img src={closeIco} alt="" />
-					</button>
-				</Header>
-				<SharedContent>
-					<UserInfo>
-						<img src={userImg} alt="user" />
-						<span>Name</span>
-					</UserInfo>
+		<>
+			{props.showModal === "open" &&
+				<Container>
+					<Content>
+						<Header>
+							<h2>Create a post</h2>
+							<button onClick={(event) => reset(event)}>
+								<img src={closeIco} alt="" />
+							</button>
+						</Header>
+						<SharedContent>
+							<UserInfo>
+								<img src={userImg} alt="user" />
+								<span>Name</span>
+							</UserInfo>
 
-					<Editor>
-						<textarea
-							value={editorText}
-							onChange={(e) => setEditorText(e.target.value)}
-							placeholder="What do you want to talk about?"
-							autoFocus={true}
-						>
+							<Editor>
+								<textarea
+									value={editorText}
+									onChange={(e) => setEditorText(e.target.value)}
+									placeholder="What do you want to talk about?"
+									autoFocus={true}
+								>
 
-						</textarea>
-					</Editor>
-				</SharedContent>
-				<SharedCreation>
-					<AttachAssets>
-						<AssetButton>
-							<img src={photoIco} alt="photoIco" />
-						</AssetButton>
-						<AssetButton>
-							<img src={videoIco} alt="videoIco" />
-						</AssetButton>
-					</AttachAssets>
+								</textarea>
+							</Editor>
+						</SharedContent>
+						<SharedCreation>
+							<AttachAssets>
+								<AssetButton>
+									<img src={photoIco} alt="photoIco" />
+								</AssetButton>
+								<AssetButton>
+									<img src={videoIco} alt="videoIco" />
+								</AssetButton>
+							</AttachAssets>
 
-					<ShareComment>
-						<AssetButton>
-							<img src={commentIco} alt="videoIco" />
-						</AssetButton>
-					</ShareComment>
+							<ShareComment>
+								<AssetButton>
+									<img src={commentIco} alt="videoIco" />
+								</AssetButton>
+							</ShareComment>
 
-					<PostButton>
-						Post
-					</PostButton>
-				</SharedCreation>
-			</Content>
-		</Container>
+							<PostButton>
+								Post
+							</PostButton>
+						</SharedCreation>
+					</Content>
+				</Container>}
+		</>
 	)
 };
 
-const Container = styled.div`
+let Container = styled.div`
 	position: fixed;
 	top: 0;
 	left: 0;

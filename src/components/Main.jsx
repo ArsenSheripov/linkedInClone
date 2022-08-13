@@ -10,6 +10,7 @@ import likeIco from "../assets/images/like-icon.svg";
 import commentIco from "../assets/images/comment-icon.svg";
 import shareIco from "../assets/images/share-icon.svg";
 import sendIco from "../assets/images/send-icon.svg";
+import PostModal from './PostModal';
 
 const Main = () => {
 	return (
@@ -97,6 +98,7 @@ const Main = () => {
 					</SocialActions>
 				</Article>
 			</div>
+			<PostModal />
 		</Container>
 	)
 }

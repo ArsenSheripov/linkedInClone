@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import cardBg from '../assets/images/card-bg.svg'
-import photo from '../assets/images/photo.svg'
-import itemIco from '../assets/images/widget-icon.svg'
-import bookmark from '../assets/images/item-icon.svg'
-import plusIco from '../assets/images/plus-icon.svg'
+import cardBg from '../assets/images/card-bg.svg';
+import photo from '../assets/images/photo.svg';
+import itemIco from '../assets/images/widget-icon.svg';
+import bookmark from '../assets/images/item-icon.svg';
+import plusIco from '../assets/images/plus-icon.svg';
+import { connect } from "react-redux";
 
-const LeftSide = () => {
+
+const LeftSide = (props) => {
 	return (
 		<Container>
 			<ArtCard>
@@ -15,7 +17,7 @@ const LeftSide = () => {
 					<a>
 						<Photo />
 						<Linke>
-							Welcome, there!
+							Welcome, {props.user ? props.user.displayName : "there"}!
 						</Linke>
 					</a>
 					<a>
@@ -217,4 +219,12 @@ const ComunityCard = styled(ArtCard)`
 
 `;
 
-export default LeftSide;
+const mapStateToProps = (state) => {
+	return {
+		user: state.userState.user
+	}
+};
+
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftSide);

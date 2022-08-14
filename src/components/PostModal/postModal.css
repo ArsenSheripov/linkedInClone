@@ -1,0 +1,20 @@
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 999;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.8);
+	transition: all 0.2s ease-in;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+}
+
+.modal.active {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: all;
+}

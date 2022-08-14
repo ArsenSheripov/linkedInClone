@@ -10,36 +10,18 @@ import likeIco from "../assets/images/like-icon.svg";
 import commentIco from "../assets/images/comment-icon.svg";
 import shareIco from "../assets/images/share-icon.svg";
 import sendIco from "../assets/images/send-icon.svg";
-import PostModal from './PostModal';
+import PostModal from './PostModal/PostModal';
 
 const Main = () => {
-	const [showModal, setShowModal] = useState("close");
+	const [showModal, setShowModal] = useState(false);
 
-	const handleClick = (e) => {
-		e.preventDefault();
-		if (e.target !== e.currentTarget) {
-			return;
-		}
-
-		switch (showModal) {
-			case "open":
-				setShowModal("close")
-				break;
-			case "close":
-				setShowModal("open")
-				break;
-			default:
-				setShowModal("close")
-				break;
-		}
-	}
 
 	return (
 		<Container>
 			<ShareBox>
 				<div>
 					<img src={userImg} alt="user" />
-					<button onClick={handleClick}>Start a post</button>
+					<button onClick={() => setShowModal(true)}>Start a post</button>
 				</div>
 				<div>
 					<button>
@@ -121,7 +103,7 @@ const Main = () => {
 			</div>
 			<PostModal
 				showModal={showModal}
-				handleClick={handleClick}
+				setShowModal={setShowModal}
 			/>
 		</Container>
 	)

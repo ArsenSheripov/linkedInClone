@@ -1,70 +1,64 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import closeIco from '../assets/images/close-svgrepo-com.svg';
-import userImg from '../assets/images/user.svg';
-import photoIco from "../assets/images/photo-icon.svg";
-import videoIco from "../assets/images/video-icon.svg";
-import commentIco from "../assets/images/comment-icon.svg";
+import closeIco from '../../assets/images/close-svgrepo-com.svg';
+import userImg from '../../assets/images/user.svg';
+import photoIco from "../../assets/images/photo-icon.svg";
+import videoIco from "../../assets/images/video-icon.svg";
+import commentIco from "../../assets/images/comment-icon.svg";
+import './postModal.css';
 
-const PostModal = (props) => {
+const PostModal = ({ showModal, setShowModal }) => {
 	const [editorText, setEditorText] = useState('')
 
-	const reset = (e) => {
-		setEditorText('')
-		props.handleClick(e)
-	}
 
 	return (
-		<>
-			{props.showModal === "open" &&
-				<Container>
-					<Content>
-						<Header>
-							<h2>Create a post</h2>
-							<button onClick={(event) => reset(event)}>
-								<img src={closeIco} alt="" />
-							</button>
-						</Header>
-						<SharedContent>
-							<UserInfo>
-								<img src={userImg} alt="user" />
-								<span>Name</span>
-							</UserInfo>
+		<div className={showModal ? 'modal active' : 'modal'} onClick={() => setShowModal(false)}>
+			<Content onClick={e => e.stopPropagation()}>
+				<Header>
+					<h2>Create a post</h2>
+					<button onClick={() => setShowModal(false)}>
+						<img src={closeIco} alt="" />
+					</button>
+				</Header>
+				<SharedContent>
+					<UserInfo>
+						<img src={userImg} alt="user" />
+						<span>Name</span>
+					</UserInfo>
 
-							<Editor>
-								<textarea
-									value={editorText}
-									onChange={(e) => setEditorText(e.target.value)}
-									placeholder="What do you want to talk about?"
-									autoFocus={true}
-								>
+					<Editor>
+						<textarea
+							value={editorText}
+							onChange={(e) => setEditorText(e.target.value)}
+							placeholder="What do you want to talk about?"
+							autoFocus={true}
+						>
 
-								</textarea>
-							</Editor>
-						</SharedContent>
-						<SharedCreation>
-							<AttachAssets>
-								<AssetButton>
-									<img src={photoIco} alt="photoIco" />
-								</AssetButton>
-								<AssetButton>
-									<img src={videoIco} alt="videoIco" />
-								</AssetButton>
-							</AttachAssets>
+						</textarea>
+					</Editor>
+				</SharedContent>
+				<SharedCreation>
+					<AttachAssets>
+						<AssetButton>
+							<img src={photoIco} alt="photoIco" />
+						</AssetButton>
+						<AssetButton>
+							<img src={videoIco} alt="videoIco" />
+						</AssetButton>
+					</AttachAssets>
 
-							<ShareComment>
-								<AssetButton>
-									<img src={commentIco} alt="videoIco" />
-								</AssetButton>
-							</ShareComment>
+					<ShareComment>
+						<AssetButton>
+							<img src={commentIco} alt="videoIco" />
+						</AssetButton>
+					</ShareComment>
 
-							<PostButton>
-								Post
-							</PostButton>
-						</SharedCreation>
-					</Content>
-				</Container>}
-		</>
+					<PostButton>
+						Post
+					</PostButton>
+				</SharedCreation>
+			</Content>
+		</div>
 	)
 };
 

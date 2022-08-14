@@ -8,7 +8,19 @@ import commentIco from "../../assets/images/comment-icon.svg";
 import './postModal.css';
 
 const PostModal = ({ showModal, setShowModal }) => {
-	const [editorText, setEditorText] = useState('')
+	const [editorText, setEditorText] = useState('');
+	const [shareImage, setShareImage] = useState('');
+
+	const handleChange = (e) => {
+		const image = e.targer.files[0];
+
+		if (image === '' || image === undefined) {
+			alert(`not an image, the file is a ${typeof image}`)
+			return;
+		}
+
+		setShareImage(image)
+	}
 
 
 	return (
@@ -53,7 +65,7 @@ const PostModal = ({ showModal, setShowModal }) => {
 						</AssetButton>
 					</ShareComment>
 
-					<PostButton>
+					<PostButton disabled={!editorText ? true : false}>
 						Post
 					</PostButton>
 				</SharedCreation>
@@ -173,12 +185,13 @@ const PostButton = styled.button`
 	min-width: auto;
 	color: white;
 	padding: .5rem 1rem;
-	background-color: #0a66c2;
+	background-color:${(props) => props.disabled ? 'rgba(0, 0, 0, 0.8)' : '#0a66c2'};
 	border-radius: 1.25rem;
 	border: none;
+	cursor: pointer;
 
 	&:hover{
-		background-color: #004182;
+		background-color: ${(props) => props.disabled ? 'rgba(0, 0, 0, 0.8)' : '#004182'} ;
 	}
 `;
 

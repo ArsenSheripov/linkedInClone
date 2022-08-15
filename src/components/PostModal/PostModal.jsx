@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import firebase from 'firebase/compat/app';
 import styled from 'styled-components';
 import closeIco from '../../assets/images/close-svgrepo-com.svg';
 import userImg from '../../assets/images/user.svg';
@@ -6,13 +7,18 @@ import photoIco from "../../assets/images/photo-icon.svg";
 import videoIco from "../../assets/images/video-icon.svg";
 import commentIco from "../../assets/images/comment-icon.svg";
 import './postModal.css';
+import ReactPlayer from 'react-player';
+import { connect } from 'react-redux';
+import { postArticleAPI } from '../../actions';
 
-const PostModal = ({ showModal, setShowModal }) => {
+const PostModal = (props) => {
 	const [editorText, setEditorText] = useState('');
 	const [shareImage, setShareImage] = useState('');
+	const [videoLink, setVideoLink] = useState('');
+	const [assetArrea, setAssetArea] = useState('');
 
 	const handleChange = (e) => {
-		const image = e.targer.files[0];
+		const image = e.target.files[0];
 
 		if (image === '' || image === undefined) {
 			alert(`not an image, the file is a ${typeof image}`)
@@ -22,20 +28,54 @@ const PostModal = ({ showModal, setShowModal }) => {
 		setShareImage(image)
 	}
 
+	const switchAssetArea = (area) => {
+		setShareImage('');
+		setVideoLink('');
+		setAssetArea(area);
+	}
+
+	const postArticle = (e) => {
+		e.preventDefault();
+		if (e.target !== e.currentTarget) {
+			return;
+		}
+		const payload = {
+			image: shareImage,
+			video: videoLink,
+			user: props.user,
+			description: editorText,
+			timestamp: firebase.firestore.Timestamp.now(),
+		}
+		props.postArticle(payload)
+		reset()
+	}
+
+	const reset = () => {
+		props.setShowModal(false);
+		setEditorText('');
+		setShareImage('');
+		setVideoLink('');
+		setAssetArea('');
+	}
 
 	return (
-		<div className={showModal ? 'modal active' : 'modal'} onClick={() => setShowModal(false)}>
+		<div className={props.showModal ? 'modal active' : 'modal'} onClick={() => props.setShowModal(false)}>
 			<Content onClick={e => e.stopPropagation()}>
 				<Header>
 					<h2>Create a post</h2>
-					<button onClick={() => setShowModal(false)}>
+					<button onClick={() => reset()}>
 						<img src={closeIco} alt="" />
 					</button>
 				</Header>
 				<SharedContent>
 					<UserInfo>
-						<img src={userImg} alt="user" />
-						<span>Name</span>
+						{props.user.photoURL
+							?
+							<img src={props.user.photoURL} alt="user" />
+							:
+							<img src={userImg} alt="user" />
+						}
+						<span>{props.user.displayName}</span>
 					</UserInfo>
 
 					<Editor>
@@ -44,17 +84,46 @@ const PostModal = ({ showModal, setShowModal }) => {
 							onChange={(e) => setEditorText(e.target.value)}
 							placeholder="What do you want to talk about?"
 							autoFocus={true}
-						>
-
-						</textarea>
+						/>
+						{assetArrea === 'image'
+							?
+							<UploadImage>
+								<input
+									type="file"
+									accept='image/gif, image/jpg, image/png'
+									name='image'
+									id='file'
+									style={{ display: 'none' }}
+									onChange={handleChange}
+								/>
+								<p>
+									<label htmlFor="file">
+										Select an image to share
+									</label>
+								</p>
+								{shareImage && <img src={URL.createObjectURL(shareImage)} />}
+							</UploadImage>
+							:
+							assetArrea === 'media' &&
+							<>
+								<input
+									type="text"
+									placeholder='Please input a video link'
+									value={videoLink}
+									onChange={(e) => setVideoLink(e.target.value)}
+								/>
+								{videoLink &&
+									<ReactPlayer width={'100%'} url={videoLink} />
+								}
+							</>}
 					</Editor>
 				</SharedContent>
 				<SharedCreation>
 					<AttachAssets>
-						<AssetButton>
+						<AssetButton onClick={() => switchAssetArea('image')}>
 							<img src={photoIco} alt="photoIco" />
 						</AssetButton>
-						<AssetButton>
+						<AssetButton onClick={() => switchAssetArea('media')}>
 							<img src={videoIco} alt="videoIco" />
 						</AssetButton>
 					</AttachAssets>
@@ -62,10 +131,14 @@ const PostModal = ({ showModal, setShowModal }) => {
 					<ShareComment>
 						<AssetButton>
 							<img src={commentIco} alt="videoIco" />
+							Anyone
 						</AssetButton>
 					</ShareComment>
 
-					<PostButton disabled={!editorText ? true : false}>
+					<PostButton
+						disabled={!editorText ? true : false}
+						onClick={(e) => postArticle(e)}
+					>
 						Post
 					</PostButton>
 				</SharedCreation>
@@ -212,4 +285,22 @@ const Editor = styled.div`
 	}
 `;
 
-export default PostModal;
+const UploadImage = styled.div`
+	text-align: center;
+	img {
+		max-width: 100%;
+	}
+`;
+
+const mapStateToProps = (state) => {
+	return {
+		user: state.userState.user
+	}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+	postArticle: (payload) => dispatch(postArticleAPI(payload))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostModal);

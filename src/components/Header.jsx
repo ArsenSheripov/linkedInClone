@@ -58,8 +58,9 @@ const Header = (props) => {
 									:
 									<img src={userImage} alt="user" />
 								}
-								<span>Me</span>
-								<img src={icoDown} alt="icoDown" />
+								<span>Me
+									<img src={icoDown} alt="icoDown" />
+								</span>
 							</a>
 							<SignOut onClick={() => props.signOut()}>
 								<a>Sign out</a>
@@ -221,6 +222,7 @@ const SignOut = styled.div`
 	transition: 0.3s;
 	text-align: center;
 	display: none;
+	cursor: pointer;
 `;
 
 const User = styled(NavList)`

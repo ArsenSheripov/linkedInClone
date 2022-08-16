@@ -76,7 +76,7 @@ const Main = (props) => {
 									<div>
 										<span>{article.actor.title}</span>
 										<span>{article.actor.description}</span>
-										<span>{article.actor.date.toDate().toLocalDateString()}</span>
+										<span>{article.actor.date.toDate().toLocaleDateString()}</span>
 									</div>
 								</a>
 								<button>...</button>
@@ -110,7 +110,7 @@ const Main = (props) => {
 									</button>
 								</li>
 								<li>
-									<a>2 coments</a>
+									<a>{article.comments}</a>
 								</li>
 							</SocialCounts>
 							<SocialActions>
@@ -325,6 +325,8 @@ const SocialCounts = styled.ul`
 		button {
 			display: flex;
 			align-items: center;
+			border: none;
+			background-color: transparent;
 		}
 	}
 `;
@@ -342,6 +344,17 @@ const SocialActions = styled.div`
 		align-items: center;
 		padding: 0.5rem;
 		color: #0a66c2;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+
+		&:active {
+			background-color: rgba(0, 0, 0, 0.3);
+		}
 
 		img {
 			width: 1.5rem;

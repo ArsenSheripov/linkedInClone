@@ -15,7 +15,7 @@ const articleReducer = (state = initState, action) => {
 		case GET_ARTICLES:
 			return {
 				...state,
-				article: action.payload
+				articles: action.payload
 			}
 		default:
 			return state;
